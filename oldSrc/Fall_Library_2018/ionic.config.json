@@ -1,0 +1,15 @@
+{
+  "name": "TCNJ_Library_app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/lakesidelibrary",
+      "proxyUrl": "http://lakesidelibrary.tcnj.edu"
+    }
+  ],
+  "pro_id": "95633465",
+  "id": "95633465"
+}

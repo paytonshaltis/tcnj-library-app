@@ -1,0 +1,46 @@
+<!--
+  Generated template for the Maps page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Maps</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="openActionSheet()" class="button">Floors</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<!-- ion-scroll zooming attempt
+
+<ion-content >
+  <h2 id="floor_name"></h2>
+  <ion-scroll zooming="true"
+              direction="xy"
+              minZoom="1"
+              maxZoom = "10"
+              scrollX="true"
+              scrollY="true"
+              overflow-scroll="false"
+              style="width:100%; height:100% ">
+        <canvas id = "canvas"></canvas>
+  </ion-scroll>
+</ion-content>
+-->
+
+<ion-content>
+  <h2 id="floor_name"></h2>
+  <canvas id = "canvas"></canvas>
+  
+  <img src = "{{ getSrc() }}" imageViewer/>
+
+
+  <!--
+  <ion-item (click)= "showImg()">
+  </ion-item> -->
+
+  <!--<img src = "{{ getSrc() }}" (click) = "showImg()"/>-->
+
+<ion-content>

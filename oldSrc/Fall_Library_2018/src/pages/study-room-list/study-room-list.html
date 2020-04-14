@@ -1,0 +1,32 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Study Rooms</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2 id="first"></h2>
+  <h6 id="firstNumber"></h6>
+  <ion-list>
+    <ion-item *ngFor="let room of first_level_rooms">{{room}}</ion-item>
+  </ion-list>
+  <h2 id="second"></h2>
+  <h6 id="secondNumber"></h6>
+  <ion-list>
+    <ion-item *ngFor="let room of second_level_rooms">{{room}}</ion-item>
+  </ion-list>
+  <h2 id="third"></h2>
+  <h6 id="thirdNumber"></h6>
+  <ion-list>
+    <ion-item *ngFor="let room of third_level_rooms">{{room}}</ion-item>
+  </ion-list>
+  <h2 id="fourth"></h2>
+  <h6 id="fourthNumber"></h6>
+  <ion-list>
+    <ion-item *ngFor="let room of fourth_level_rooms">{{room}}</ion-item>
+  </ion-list>
+</ion-content>

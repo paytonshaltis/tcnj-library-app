@@ -1,0 +1,191 @@
+<!--
+  Generated template for the ReservationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+      <ion-title>
+        Study Room Reservations
+      </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+
+    <ion-slides #ReservationSlider>
+
+      <ion-slide>
+        <p *ngIf="submitAttempt" style="color: #ffffff;">Please fill out all details accurately.</p>
+
+        <ion-list>
+
+          <br><br>
+          <div style= "color: black; padding-top: 0.2rem; font-size: 14px;" >
+            Please fill out the following form from top to bottom. The reservation date
+            <strong>must</strong> be selected prior to selecting start and end times.
+          </div>
+
+            <form [formGroup]="slideOneForm" >
+
+                <ion-item>
+                    <ion-label floating>Reservation Date  </ion-label>
+                    <ion-datetime name = "reservation_date" formControlName="reservationDate" displayFormat="MMMM DD YYYY" [(ngModel)]="myDate" [min] = "today"
+  [max]="sevenDays"></ion-datetime>
+
+                </ion-item>
+
+                <ion-item>
+                    <ion-label floating>Reservation Start Time </ion-label>
+                    <ion-datetime name = "start" formControlName="reservationStartTime"  displayFormat="h:mm A" [(ngModel)]="myDate1" minuteValues="0,15,30,45" ></ion-datetime>
+                </ion-item>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.hasError('end before start')">
+                   Reservation start time must be <strong>different</strong> and <strong>before</strong> the end time
+                </div>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.hasError('hit max time')">
+                  Reservations can only be a <strong>maximum of 3 hours</strong>
+                </div>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.hasError('closed')">
+                    The library is <strong>not open</strong> for reservations at that time
+                </div>
+
+                <ion-item>
+                    <ion-label floating>Reservation End Time </ion-label>
+                    <ion-datetime name = "end" formControlName="reservationEndTime"  displayFormat="h:mm A" [(ngModel)]="myDate2" minuteValues="0,15,30,45" ></ion-datetime>
+                </ion-item>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.hasError('end before start')">
+                    Reservation end time must be <strong>different</strong> and <strong>after</strong> the start time
+                </div>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.hasError('hit max time')">
+                    Reservations can only be a <strong>maximum of 3 hours</strong>
+                </div>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.hasError('closed')">
+                    The library is <strong>not open</strong> for reservations at that time
+                </div>
+
+                <ion-item>
+                    <ion-label floating>Number of Students </ion-label>
+                    <ion-input name = "num_of_students" formControlName="numOfStudents" type="number" min = "2" max = "12"></ion-input>
+                </ion-item>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.controls.numOfStudents.hasError('not a number')">
+                    Number of students must be a whole number (i.e., 5)
+                </div>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.controls.numOfStudents.hasError('not a whole number')">
+                    Number of students must be a whole number (i.e., 5)
+                </div>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.controls.numOfStudents.hasError('too little')">
+                    Minimum number of students that can reserve a study room is 2
+                </div>
+
+                <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideOneForm.controls.numOfStudents.hasError('too many')">
+                    Maximum number of students that can reserve a study room is 12
+                </div>
+
+                <br>
+
+            </form>
+
+        </ion-list>
+
+        <div style = "text-align:right;">
+          <ion-buttons end>
+            <button ion-button icon-right (click)="next()">Next <ion-icon name="arrow-forward"></ion-icon></button>
+          </ion-buttons>
+        </div>
+
+      </ion-slide>
+
+      <ion-slide>
+
+      <form novalidate [formGroup]="slideTwoForm" (ngSubmit) = "manage(slideTwoForm.value)" >
+        <br><br>
+        <div style= "color: black; padding-top: 0.2rem; font-size: 14px;" >
+          Please click "ADD STUDENT" in order to include another student's contact information. <br><br>
+          All emails and names are <strong>required</strong> for every student in the reservation.
+          All students will be required to show TCNJ IDs in order to have access to your reserved study room.
+        </div>
+
+
+      <div formArrayName = "students" margin-bottom>
+
+        <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideTwoForm.controls.students.hasError('too little') && submitAttempt">
+            <br>Contact information for all students in the reservation group is <strong>required</strong>.
+        </div>
+        <div style= "color: red; padding-top: 0.2rem; font-size: 12px;" *ngIf="slideTwoForm.controls.students.hasError('too many') && submitAttempt ">
+            <br>The number of students listed on the previous form is less than the number of contacts listed.
+        </div>
+
+          <section [formGroupName] = "i"
+          *ngFor="let stud of slideTwoForm.controls.students.controls; let i = index">
+            <ion-item-group>
+                <ion-item>
+                    <ion-label floating>First Name: </ion-label>
+                    <ion-input type="text" maxlength="25" formControlName="FirstName"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Last Name: </ion-label>
+                    <ion-input type="text" maxlength="25" formControlName="LastName"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Email: </ion-label>
+                    <ion-input type="email" maxlength="25" formControlName="Email"></ion-input>
+                </ion-item>
+                <br>
+           <!-- Allow generated input field to be removed -->
+                 <span
+                    float-center
+                    ion-button
+                    icon-left
+                    clear
+                    *ngIf="slideTwoForm.controls.students.length > 1"
+                    (click)="removeInputField(i)">
+                    <ion-icon name="close" ></ion-icon>
+                    Remove
+                 </span>
+
+              </ion-item-group>
+           </section>
+        </div>
+
+        <span
+           ion-button
+           float-center
+           icon-left
+           clear
+           *ngIf="slideTwoForm.controls.students.length < getStudent()"
+           (click)="addNewInputField()">
+              <ion-icon name="add"></ion-icon>
+                Add Student
+        </span>
+
+        <br>
+        </form>
+
+        <div>
+          <div style = "float:left;">
+            <ion-buttons start>
+              <button ion-button icon-left (click)="prev()"><ion-icon name="arrow-back"></ion-icon> Back</button>
+            </ion-buttons>
+          </div>
+
+          <div style = "float:right;">
+            <button ion-button (click)="save()">Submit</button>
+          </div>
+        </div>
+
+      </ion-slide>
+
+    </ion-slides>
+
+</ion-content>

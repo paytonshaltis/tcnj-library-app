@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      R. Barbara Gitenstein Library
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col ion-item [navPush]="studyRoomsPage">
+        <img src="assets/ui_elements/study.png">
+        <br>
+        Study Rooms
+      </ion-col>
+      <ion-col ion-item [navPush]="computersPage">
+        <img src="assets/ui_elements/computers.png">
+        <br>
+        Computers
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col ion-item [navPush]="printersPage">
+        <img src="assets/ui_elements/printers.png">
+        <br>
+        Printers
+      </ion-col>
+      <ion-col ion-item [navPush]="mapsPage">
+        <img src="assets/ui_elements/maps.png">
+        <br>
+        Maps
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col ion-item [navPush]="infoPage">
+        <img src="assets/ui_elements/info.png">
+        <br>
+        Library Info
+      </ion-col>
+      <ion-col ion-item [navPush]="slidesPage">
+        <img src="assets/ui_elements/gallery.png">
+        <br>
+        Gallery
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p ion-item [navPush]="aboutPage">
+    About
+  </p>
+</ion-content>
