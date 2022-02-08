@@ -15,6 +15,11 @@ const URL = 'http://knoxlablibrary.tcnj.edu/compstatus.php';
 
 export class ComputersPage {
 
+  // Need to keep track of the current floor for refreshing
+  current_floor = 5;
+  inter: any;
+
+  // Need a reference to the map key page
   keyPage = KeyPage;
 
   // The parsed XML of computer data
@@ -45,10 +50,29 @@ export class ComputersPage {
     }
   }
 
+  /* Function to refresh the computer drawings on the current map. */
+  refresh() {
+    
+    // As long as the computer data is retrieved...
+    if(this.computers !== undefined) {
+      
+      // Retrieve the data again
+      this.loadXML();
+      this.setUpComps();
+    
+      // Only redisplay if we are not on the third level
+      // This avoids multiple pop-up alerts from overlapping
+      if(this.current_floor != 3) {
+        console.log("Should be refreshing ", this.current_floor)
+        this.showFloor(this.current_floor);
+      }
+    }
+  }
+
   /* Before view becomes the active page, fetch XML from database */
   ionViewWillEnter() {
-    console.log('Fetching new occupancy data...');
     this.loadXML();
+    this.inter = setInterval(() => {this.refresh()}, 3000);
   }
 
   /* After view becomes the active page, set up computer / status arrays */
@@ -58,6 +82,12 @@ export class ComputersPage {
     // So long as arrays have contents now, we can present a menu
     if(this.computers !== undefined)
       this.openActionSheet();
+  }
+
+  /* After leaving this page, reset the floor number and clear timer. */
+  ionViewDidLeave() {
+    this.current_floor = 5;
+    clearInterval(this.inter);
   }
 
   /* Fetch data from the database and call the parse function */
@@ -151,12 +181,15 @@ export class ComputersPage {
     // Create the action sheet
     let actionsheet = this.actionSheetCtrl.create({
       title:"Select Floor",
+      
+      // Selecting a floor sets the current_floor variable for refreshing,
+      // as well as showing the floor selected.
       buttons:[
-        {text: this.plan_names[0], handler: () => {this.showFloor(0);}}, 
-        {text: this.plan_names[1], handler: () => {this.showFloor(1);}},
-        {text: this.plan_names[2], handler: () => {this.showFloor(2);}},
-        {text: this.plan_names[3], handler: () => {this.showFloor(3);}},
-        {text: this.plan_names[4], handler: () => {this.showFloor(4);}}, 
+        {text: this.plan_names[0], handler: () => {this.showFloor(0); this.current_floor = 0;}}, 
+        {text: this.plan_names[1], handler: () => {this.showFloor(1); this.current_floor = 1;}},
+        {text: this.plan_names[2], handler: () => {this.showFloor(2); this.current_floor = 2;}},
+        {text: this.plan_names[3], handler: () => {this.showFloor(3); this.current_floor = 3;}},
+        {text: this.plan_names[4], handler: () => {this.showFloor(4); this.current_floor = 4;}}, 
         {text: 'Cancel', role: 'cancel',}
       ]
     });
@@ -173,7 +206,14 @@ export class ComputersPage {
   /* Display the floor plan specified by the input and draw computers */
   showFloor(floor_number: number) {
     
+    // Return if a floor is not selected or if it is floor 5
+    if (!document.getElementById("floor_name")) { return; }
+    if(floor_number === 5) {
+      return;
+    }
+
     // Set title of page
+    console.log(floor_number)
     document.getElementById("floor_name").innerHTML = this.plan_names[floor_number];
 
     // Create and adjust the height and width of the canvas element
@@ -222,6 +262,17 @@ export class ComputersPage {
     return img;
   }
 
+  /* 
+    Clears the contents of each floor's array. Used in order to 
+    properly indicate updates to a floor's computers.
+  */
+  clearFloorComps() {
+    this.basementComps = [];
+    this.firstFloorComps = [];
+    this.secondFloorComps = [];
+    this.fourthFloorComps = [];
+  }
+
   /* Organizes all computers into floor-based arrays */
   setUpComps() {
     
@@ -240,6 +291,9 @@ export class ComputersPage {
     // If the computers were properly fetched from the database...
     else {
       
+      // Start by clearing the arrays of computers
+      this.clearFloorComps();
+
       for(let i = 0; i < this.computers.length; i++) {
         
         // Append each computer to its appropriate array
@@ -452,6 +506,10 @@ export class ComputersPage {
 
   /* Draw the computers on the fourth level */
   fourthLevelComputers() {
+
+    // For debugging
+    console.log('Drawing fourth-level comps...');
+    console.log(this.fourthFloorComps);
 
     // Prepare the drawing canvas
     let canvas = <HTMLCanvasElement>document.getElementById('canvas');
