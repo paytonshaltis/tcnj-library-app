@@ -26,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { URLSearchParams } from '@angular/http';
+import { HTTP } from '@ionic-native/http';
 
 
 const routes: Routes = [
@@ -46,7 +47,7 @@ const routes: Routes = [
     GalleryPage,
     SlidesPage,
     KeyPage,
-    StudyRoomListPage
+    StudyRoomListPage,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +83,7 @@ const routes: Routes = [
     ScreenOrientation,
     PhotoViewer,
     File,
+    HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

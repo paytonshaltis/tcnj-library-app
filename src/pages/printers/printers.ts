@@ -346,8 +346,8 @@ export class PrintersPage {
   */
   showAlert() {
     let alert = this.alertCtrl.create({
-      title: 'No printers!',
-      subTitle: 'There are no printers on the third floor.',
+      title: 'No Printers!',
+      subTitle: 'There are no printers on the third floor. Visit another floor for printer locations.',
       buttons: ['OK']
     });
     alert.present();
