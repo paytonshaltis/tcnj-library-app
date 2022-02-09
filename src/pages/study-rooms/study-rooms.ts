@@ -337,16 +337,22 @@ export class StudyRoomsPage {
     console.log(this.studyrooms);
     if(this.studyrooms === undefined) {
       
-      // Hide these elements if not on the TCNJ WiFi
-      document.getElementById('floor_name').style.visibility = "hidden";
-      document.getElementById('floor_button').style.visibility = "hidden";
-      document.getElementById('info_icon').style.visibility = "hidden";
+      // Show this main text if not on the TCNJ WiFi
+      document.getElementById('main-text').innerHTML = "Please check your TCNJ WiFi connection and retry.";
       
       // Inform the user that they must be on the TCNJ WiFi
       this.ShowWifiAlert();
     }
     else {
+
+      // Show this text / these elements if connected to the TCNJ WiFi
+      document.getElementById('floor_name').style.visibility = "visible";
+      document.getElementById('floor_button').style.visibility = "visible";
+      document.getElementById('info_icon').style.visibility = "visible";
+      document.getElementById('tech-link').style.visibility = "visible";
+      document.getElementById('main-text').innerHTML = "Tap on image to zoom in. Tap the 'i' for more information.";
       this.clearFloorRooms();
+      
       for(let i = 0; i < this.studyrooms.length; i++) {
         if(i < 3)
           this.firstFloorRooms.push(this.studyrooms[i]);

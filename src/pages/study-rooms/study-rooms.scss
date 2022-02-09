@@ -25,4 +25,11 @@ page-study-rooms {
     color: rgb(0, 122, 255);
     margin-bottom: 10px;
   }
+
+  #floor_name, 
+  #floor_button, 
+  #info_icon, 
+  #tech-link {
+    visibility: hidden;
+  }
 }

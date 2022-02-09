@@ -285,10 +285,8 @@ export class ComputersPage {
     // If the computers were not properly fetched from the database...
     if(this.computers === undefined) {
       
-      // Hide these elements on the display
-      //document.getElementById('floor_name').style.visibility = "hidden";
-      document.getElementById('floor_button').style.visibility = "hidden";
-      document.getElementById('info_icon').style.visibility = "hidden";
+      // Show this text when not ont the TCNJ WiFi
+      document.getElementById('main-text').innerHTML = "Please check your TCNJ WiFi connection and retry.";
       
       // Inform the user that they must be on the TCNJ WiFi
       this.showWifiAlert();
@@ -297,6 +295,13 @@ export class ComputersPage {
     // If the computers were properly fetched from the database...
     else {
       
+      // Display the correct text / elements on the page
+      document.getElementById('floor_name').style.visibility = "visible";
+      document.getElementById('floor_button').style.visibility = "visible";
+      document.getElementById('info_icon').style.visibility = "visible";
+      document.getElementById('tech-link').style.visibility = "visible";
+      document.getElementById('main-text').innerHTML = "Tap on image to zoom in. Tap the 'i' for more information.";
+
       // Start by clearing the arrays of computers
       this.clearFloorComps();
 
