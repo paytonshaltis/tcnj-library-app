@@ -6,7 +6,7 @@ import { KeyPage } from '../key/key';
 import { StudyRoomListPage } from '../study-room-list/study-room-list';
 import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
-import { TechExplanationPage } from '../tech-explanation/tech-explanation';
+import { RoomErrorsPage } from '../room-errors/room-errors';
 
 const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
 
@@ -15,12 +15,12 @@ const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
   templateUrl: 'study-rooms.html'
 })
 export class StudyRoomsPage {
-
+  
   current_floor = 5; //DS
   inter: any;
 
   keyPage = KeyPage;
-  techPage = TechExplanationPage;
+  roomErrors = RoomErrorsPage;
   
   // will hold the parsed XML of study room data
   studyrooms: any; //
@@ -74,9 +74,10 @@ export class StudyRoomsPage {
     variable.
   */
   ionViewWillEnter() {
+
     //this.current_floor = 5;
-      this.loadXML();
-      this.inter = setInterval(() => {this.refresh()}, 3000);
+    this.loadXML();
+    this.inter = setInterval(() => {this.refresh()}, 3000);
   }
 
   /*

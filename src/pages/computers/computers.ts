@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
-import { ActionSheetController, NavParams, AlertController } from 'ionic-angular';
+import { ActionSheetController, NavParams, AlertController, NavController } from 'ionic-angular';
 import { KeyPage } from '../key/key';
 import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
-import { TechExplanationPage } from '../tech-explanation/tech-explanation';
-
+import { CompErrorsPage } from '../comp-errors/comp-errors';
 const URL = 'http://knoxlablibrary.tcnj.edu/compstatus.php';
 
 @Component({
@@ -22,7 +21,7 @@ export class ComputersPage {
 
   // Need a reference to the map key page and tech explanation page
   keyPage = KeyPage;
-  techPage = TechExplanationPage;
+  compErrors = CompErrorsPage;
 
   // The parsed XML of computer data
   computers: any;     
@@ -57,7 +56,7 @@ export class ComputersPage {
     
     // As long as the computer data is retrieved...
     if(this.computers !== undefined) {
-      
+
       // Retrieve the data again
       this.loadXML();
       this.setUpComps();
@@ -73,6 +72,7 @@ export class ComputersPage {
 
   /* Before view becomes the active page, fetch XML from database */
   ionViewWillEnter() {
+
     this.loadXML();
     this.inter = setInterval(() => {this.refresh()}, 3000);
   }

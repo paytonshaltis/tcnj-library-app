@@ -1,0 +1,36 @@
+page-comp-errors {
+    
+    h1 {
+        font-size: 20px;
+        font-weight: bolder;
+    }
+
+    h2 {
+        font-size: 16px;
+        margin-bottom: 4px;
+        font-weight: bold;
+    }
+
+    p {
+        margin-top: 0px;
+    }
+
+    #helpLink {
+        font-size: 19px;
+        color: rgb(0, 122, 255);
+        text-align: center;
+        border: 2px solid rgb(0, 122, 255);
+        border-radius: 7px;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        width: fit-content;
+        position: relative;
+        top: 15px;
+        background-color: rgb(220, 238, 245);
+    }
+
+}
+page-comp-errors {
+
+}
