@@ -82,8 +82,9 @@ export class ComputersPage {
     this.setUpComps();
     
     // So long as arrays have contents now, we can present a menu
-    if(this.computers !== undefined)
+    if(this.computers !== undefined) {
       this.openActionSheet();
+    }
   }
 
   /* After leaving this page, reset the floor number and clear timer. */

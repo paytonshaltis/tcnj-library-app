@@ -174,13 +174,6 @@ export class StudyRoomsPage {
     });
   }
 
-  /*
-    When view loads, open the menu of floor options.
-  */
-  /*ionViewDidLoad() {
-      this.openActionSheet();
-  }*/
-
   ionViewDidLeave() {
     this.current_floor = 5;
     clearInterval(this.inter);
