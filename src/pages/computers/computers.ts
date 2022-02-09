@@ -232,18 +232,22 @@ export class ComputersPage {
     switch(floor_number) {
       case 0:
         this.lowerLevelComputers();
+        console.log(this.basementComps);
         break;
       case 1:
         this.firstLevelComputers();
+        console.log(this.firstFloorComps);
         break;
       case 2:
         this.secondLevelComputers();
+        console.log(this.secondFloorComps);
         break;
       case 3:
         this.showNoComputersAlert();
         break;
       case 4:
         this.fourthLevelComputers();
+        console.log(this.fourthFloorComps);
         break;
     }
 
@@ -282,7 +286,7 @@ export class ComputersPage {
     if(this.computers === undefined) {
       
       // Hide these elements on the display
-      document.getElementById('floor_name').style.visibility = "hidden";
+      //document.getElementById('floor_name').style.visibility = "hidden";
       document.getElementById('floor_button').style.visibility = "hidden";
       document.getElementById('info_icon').style.visibility = "hidden";
       
@@ -300,7 +304,7 @@ export class ComputersPage {
         
         // Append each computer to its appropriate array
         // Note that all Macs are on the first floor as of Spring 2022
-        if(this.computers[i].name.includes("LIBP1") || this.computers[i].name.includes("MAC")){
+        if(this.computers[i].name.includes("LIBP1") || this.computers[i].name.includes("mac")){
           this.firstFloorComps.push(this.computers[i]);
         }
         else if(this.computers[i].name.includes("LIBP4")){
@@ -431,22 +435,42 @@ export class ComputersPage {
     }
 
     // Coordinates for all 6 Macs on the first floor
-    // COMP #:         3    4    6    5    1    2
-    let xCoordMac = [780, 817, 784, 784, 780, 817];
-    let yCoordMac = [690, 690, 366, 329, 657, 657];
+    // COMP #:         1    2    3    4    5    6
+    let xCoordMac = [780, 817, 780, 817, 784, 784];
+    let yCoordMac = [657, 657, 690, 690, 329, 366];
 
     // Draw each of the 6 Macs from the arrays above
     for(let i = 0; i < 6; i++) {
-      ctx.fillStyle = 'red';
-      ctx.beginPath();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = 'black';
-      ctx.arc(yCoordMac[i] + (this.square_size/2), xCoordMac[i] + (this.square_size/2), this.square_size/2 , 0, Math.PI * 2, true);
-      ctx.stroke();
-      ctx.closePath();
-      ctx.fill();
-    }
 
+      // If the computer is occupied:
+      if(this.firstFloorComps[i + 39].status == 0){
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = this.colors[this.firstFloorComps[i + 39].status];
+
+        ctx.beginPath();
+        ctx.moveTo(yCoordMac[i],xCoordMac[i]);
+        ctx.lineTo((yCoordMac[i] + this.square_size),(xCoordMac[i] + this.square_size));
+        ctx.moveTo(yCoordMac[i],(xCoordMac[i] + this.square_size));
+        ctx.lineTo((yCoordMac[i] + this.square_size),xCoordMac[i]);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'black';
+      }
+
+      // If the computer is available:
+      else {
+        ctx.fillStyle = this.colors[this.firstFloorComps[i + 39].status];
+        ctx.beginPath();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'black';
+        ctx.arc(yCoordMac[i] + (this.square_size/2), xCoordMac[i] + (this.square_size/2), this.square_size/2 , 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
   }
 
   /* Draw the computers on the second level */
