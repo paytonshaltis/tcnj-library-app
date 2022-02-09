@@ -6,6 +6,7 @@ import { KeyPage } from '../key/key';
 import { StudyRoomListPage } from '../study-room-list/study-room-list';
 import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
+import { TechExplanationPage } from '../tech-explanation/tech-explanation';
 
 const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
 
@@ -19,7 +20,9 @@ export class StudyRoomsPage {
   inter: any;
 
   keyPage = KeyPage;
-   // will hold the parsed XML of study room data
+  techPage = TechExplanationPage;
+  
+  // will hold the parsed XML of study room data
   studyrooms: any; //
 
   // Arrays to hold the studyrooms for each floor

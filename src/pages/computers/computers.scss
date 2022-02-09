@@ -9,7 +9,20 @@ page-computers {
     display: block;
     
   }
+  
   ion-header {
     padding-top: 40px;
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+    width: 150px;
+    text-align: right;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    font-style: bold;
+    color: rgb(0, 122, 255);
   }
 }

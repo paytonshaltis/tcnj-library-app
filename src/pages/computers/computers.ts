@@ -5,6 +5,7 @@ import { ActionSheetController, NavParams, AlertController } from 'ionic-angular
 import { KeyPage } from '../key/key';
 import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
+import { TechExplanationPage } from '../tech-explanation/tech-explanation';
 
 const URL = 'http://knoxlablibrary.tcnj.edu/compstatus.php';
 
@@ -19,8 +20,9 @@ export class ComputersPage {
   current_floor = 5;
   inter: any;
 
-  // Need a reference to the map key page
+  // Need a reference to the map key page and tech explanation page
   keyPage = KeyPage;
+  techPage = TechExplanationPage;
 
   // The parsed XML of computer data
   computers: any;     

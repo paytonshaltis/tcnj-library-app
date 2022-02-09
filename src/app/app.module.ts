@@ -27,6 +27,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { URLSearchParams } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
+import { TechExplanationPage } from '../pages/tech-explanation/tech-explanation';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
     SlidesPage,
     KeyPage,
     StudyRoomListPage,
+    TechExplanationPage,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +80,7 @@ const routes: Routes = [
     SlidesPage,
     KeyPage,
     StudyRoomListPage,
+    TechExplanationPage,
   ],
   providers: [
     ScreenOrientation,
