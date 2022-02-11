@@ -3,6 +3,7 @@ page-comp-errors {
     h1 {
         font-size: 20px;
         font-weight: bolder;
+        text-align: center;
     }
 
     h2 {
@@ -13,6 +14,7 @@ page-comp-errors {
 
     p {
         margin-top: 0px;
+        line-height: 1.6;
     }
 
     #helpLink {
@@ -27,10 +29,12 @@ page-comp-errors {
         width: fit-content;
         position: relative;
         top: 15px;
-        background-color: rgb(220, 238, 245);
+        background-color: rgb(222, 237, 243);
     }
 
-}
-page-comp-errors {
+    #bugButton {
+        display: grid;
+        place-items: center;
+    }
 
 }
