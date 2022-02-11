@@ -33,7 +33,7 @@ export class KeyPage {
     //this.drawReservedSquare();
     this.drawOccupiedCompSquare();
     this.drawUnoccupiedCompSquare();
-    this.drawMacSquare();
+    this.drawUnoccupiedMac();
     this.drawPrinterSquare();
   }
 
@@ -141,10 +141,10 @@ export class KeyPage {
     ctx.fillRect(0, 0, this.square_size, this.square_size);
   }
 
-  drawMacSquare() {
-    let canvas = <HTMLCanvasElement>document.getElementById('canvas6');
+  drawUnoccupiedMac() {
+    let canvas = <HTMLCanvasElement>document.getElementById('canvas8');
     let ctx = canvas.getContext("2d");
-    ctx.fillStyle = this.mac;
+    ctx.fillStyle = this.unoccupied;
     ctx.beginPath();
     ctx.arc((this.square_size/2),(this.square_size/2), this.square_size/2 , 0, Math.PI * 2, true);
     ctx.stroke();

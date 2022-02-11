@@ -8,8 +8,11 @@
     {
       "path": "/lakesidelibrary",
       "proxyUrl": "http://lakesidelibrary.tcnj.edu"
+    },
+    {
+      "path": "/api",
+      "proxyUrl": "https://knoxlablibrary.tcnj.edu"
     }
   ],
-  "pro_id": "95633465",
   "id": "95633465"
 }

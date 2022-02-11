@@ -5,25 +5,23 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Study Rooms</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="openActionSheet()" class="button">Floors</button>
+      <button id="floor_button" ion-button (click)="openActionSheet()" class="button">Floors</button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+  <p name="tech-explanation" id="tech-link" [navPush]="roomErrors" tappable>Something seem off?</p>
   <h2 id="floor_name"></h2>
+
   <canvas id="canvas"></canvas>
   <img src = "{{ getSrc() }}" imageViewer/>
 
   <div>
-    <h4 text-center><br> Click on image to zoom in. Click the 'i' for more information.</h4>
+    <h4 id="main-text" text-center><br></h4>
     <ion-icon name="information-circle" id="info_icon" [navPush]="keyPage" tappable></ion-icon>
-    
   </div>
 </ion-content>

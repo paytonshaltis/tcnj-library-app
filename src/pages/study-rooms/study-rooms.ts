@@ -1,23 +1,28 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
+import { HTTP } from '@ionic-native/http'
 import { NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 import { KeyPage } from '../key/key';
 import { StudyRoomListPage } from '../study-room-list/study-room-list';
 import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
+import { RoomErrorsPage } from '../room-errors/room-errors';
 
+const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
 
 @Component({
   selector: 'page-study-rooms',
   templateUrl: 'study-rooms.html'
 })
 export class StudyRoomsPage {
-
+  
   current_floor = 5; //DS
   inter: any;
 
   keyPage = KeyPage;
-   // will hold the parsed XML of study room data
+  roomErrors = RoomErrorsPage;
+  
+  // will hold the parsed XML of study room data
   studyrooms: any; //
 
   // Arrays to hold the studyrooms for each floor
@@ -38,7 +43,7 @@ export class StudyRoomsPage {
     Obtain URI of each map and add to array. Add name of each map to second array.
     Create the images of the floor plans.
   */
-  constructor(public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public navCtrl: NavController, public http: Http) {
+  constructor(public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public navCtrl: NavController, public http: HTTP) {
     for(let i = 0; i < 5; i++) {
       let plan_uri = "assets/floor_plans/".concat(i.toString(), ".png");
       this.plans.push(plan_uri);
@@ -55,7 +60,12 @@ export class StudyRoomsPage {
 
       //console.log(this.thirdFloorRooms);
       //this.drawRooms(this.current_floor);
-      this.showFloor(this.current_floor);
+
+      // Only redisplay if we are not on the basement level
+      // This avoids multiple pop-up alerts from overlapping
+      if(this.current_floor != 0) {
+        this.showFloor(this.current_floor);
+      }
     }
   }
 
@@ -64,9 +74,10 @@ export class StudyRoomsPage {
     variable.
   */
   ionViewWillEnter() {
+
     //this.current_floor = 5;
-      this.loadXML();
-      this.inter = setInterval(() => {this.refresh()}, 3000);
+    this.loadXML();
+    this.inter = setInterval(() => {this.refresh()}, 3000);
   }
 
   /*
@@ -75,8 +86,12 @@ export class StudyRoomsPage {
   */
   ionViewDidEnter() {
       this.setUpStudyRooms();
-      if(this.studyrooms !== undefined)
+      if(this.studyrooms !== undefined) {
+
+        // Open the action sheet for floor selection.
         this.openActionSheet();
+
+      }
   }
 
   /*
@@ -87,6 +102,28 @@ export class StudyRoomsPage {
     //console.log(this.http.get("http://knoxlablibrary.tcnj.edu/studyroomstatus.php"));
     //console.log("going to fetch url");
     //alert("here 1");
+    // THIS WORKS! RECEIVES XML DATA FROM SERVER, NEED TO PARSE! //
+    this.http.get(URL, {}, {})
+    .then(data => {
+      console.log('Data Fetched:');
+      console.log(data.status);
+      console.log(data.data);
+      console.log(data.headers);
+      // this is a new line
+      data = data.data;
+      // this is a new line
+      this.parseXML(data).then((data) => {
+        this.studyrooms = data;
+        console.log("The parsed data:", JSON.stringify(this.studyrooms));
+      });
+    })
+    .catch(error => {
+      console.log('Error:');
+      console.log(error.status);
+      console.log(error.data);
+      console.log(error.headers);
+    });
+    /*
     this.http.get("http://knoxlablibrary.tcnj.edu/studyroomstatus.php")
     .map(res => res.text()).subscribe(data => {
       //alert("here 4");
@@ -98,9 +135,9 @@ export class StudyRoomsPage {
         this.showFloor(this.current_floor);
       });
     },(error => {alert(error);}));
-      //console.log("fetched url");
+      console.log("fetched url");
       //alert("here 3");
-
+    */
   }
 
   /*
@@ -136,13 +173,6 @@ export class StudyRoomsPage {
 
     });
   }
-
-  /*
-    When view loads, open the menu of floor options.
-  */
-  /*ionViewDidLoad() {
-      this.openActionSheet();
-  }*/
 
   ionViewDidLeave() {
     this.current_floor = 5;
@@ -187,15 +217,17 @@ export class StudyRoomsPage {
           this.showFloor(4);
           this.current_floor = 4;
         }
-      }, {
-        text: "Study Room Information",
-        handler: () => {
-          this.navCtrl.pop();
-          this.navCtrl.push(StudyRoomListPage, {
-            plan_names: this.plan_names
-          });
-        }
-      }, {
+      }, 
+      // {
+      //   text: "Study Room Information",
+      //   handler: () => {
+      //     this.navCtrl.pop();
+      //     this.navCtrl.push(StudyRoomListPage, {
+      //       plan_names: this.plan_names
+      //     });
+      //   }
+      // }, 
+      {
         text: 'Cancel',
         role: 'cancel',
       }]
@@ -297,13 +329,23 @@ export class StudyRoomsPage {
   setUpStudyRooms() {
     console.log(this.studyrooms);
     if(this.studyrooms === undefined) {
-      //document.getElementById('floor_name').style.visibility = "hidden";
-      //document.getElementById('floor_button').style.visibility = "hidden";
-      //document.getElementById('info_icon').style.visibility = "hidden";
+      
+      // Show this main text if not on the TCNJ WiFi
+      document.getElementById('main-text').innerHTML = "Please check your TCNJ WiFi connection and retry.";
+      
+      // Inform the user that they must be on the TCNJ WiFi
       this.ShowWifiAlert();
     }
     else {
+
+      // Show this text / these elements if connected to the TCNJ WiFi
+      document.getElementById('floor_name').style.visibility = "visible";
+      document.getElementById('floor_button').style.visibility = "visible";
+      document.getElementById('info_icon').style.visibility = "visible";
+      document.getElementById('tech-link').style.visibility = "visible";
+      document.getElementById('main-text').innerHTML = "Tap on image to zoom in. Tap the 'i' for more information.";
       this.clearFloorRooms();
+      
       for(let i = 0; i < this.studyrooms.length; i++) {
         if(i < 3)
           this.firstFloorRooms.push(this.studyrooms[i]);
@@ -329,12 +371,12 @@ export class StudyRoomsPage {
 
   //The following methods draw squares onto floor plans to represent study rooms
   lowerLevelStudyRooms() {
-    /*let alert = this.alertCtrl.create({
-      title: 'No study rooms!',
-      subTitle: 'There are no study rooms on the lower floor.',
+    let alert = this.alertCtrl.create({
+      title: 'No Study Rooms!',
+      subTitle: 'There are no study rooms on the lower floor. Visit another floor for study room occupancy information.',
       buttons: ['OK']
     });
-    alert.present();*/
+    alert.present();
 
   }
 
