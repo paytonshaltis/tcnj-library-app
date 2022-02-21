@@ -35,6 +35,7 @@ export class KeyPage {
     this.drawUnoccupiedCompSquare();
     this.drawUnoccupiedMac();
     this.drawPrinterSquare();
+    this.drawServicedCompTriangle();
   }
 
   /*
@@ -141,13 +142,27 @@ export class KeyPage {
     ctx.fillRect(0, 0, this.square_size, this.square_size);
   }
 
+  drawServicedCompTriangle() {
+    let canvas = <HTMLCanvasElement>document.getElementById('canvas6');
+    let ctx = canvas.getContext("2d");
+    let x = 4;
+    let y = 4;
+
+    ctx.beginPath();
+    ctx.moveTo(y + (this.square_size/2.0), x);
+    ctx.lineTo(y, x + this.square_size);
+    ctx.lineTo(y + this.square_size, x + this.square_size);
+    ctx.closePath();
+    ctx.fillStyle = '#FFA500';
+    ctx.fill();
+  }
+
   drawUnoccupiedMac() {
     let canvas = <HTMLCanvasElement>document.getElementById('canvas8');
     let ctx = canvas.getContext("2d");
     ctx.fillStyle = this.unoccupied;
     ctx.beginPath();
     ctx.arc((this.square_size/2),(this.square_size/2), this.square_size/2 , 0, Math.PI * 2, true);
-    ctx.stroke();
     ctx.closePath();
     ctx.fill();
   }

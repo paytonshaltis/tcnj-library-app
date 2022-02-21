@@ -162,12 +162,12 @@ export class ComputersPage {
           });
 
           // Change 'status' based on 'service'
-          // If out for service, mark as in-use
+          // If out for service, mark as status '2'
           if(item.service[0] == 1) {
-            arr[arr.length - 1].status = 0;
+            arr[arr.length - 1].status = 2;
           }
           
-          // If NOT out for service, mark as its status
+          // If NOT out for service, mark as status '0' or '1'
           else {  
             arr[arr.length - 1].status = item.status[0];
           }
@@ -351,26 +351,26 @@ export class ComputersPage {
 
     // Coordinates for all 56 computers on the lower level
     // COMP #: (Lib2-LibXX)    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25   26   27   28
-    let XCoord =            [863, 830, 797, 764, 731, 698, 698, 731, 764, 797, 830, 863, 863, 830, 797, 764, 731, 698, 698, 731, 764, 797, 830, 863, 896, 863, 830, 797];
-    let YCoord =            [930, 930, 930, 930, 930, 930, 897, 897, 897, 897, 897, 897, 831, 831, 831, 831, 831, 831, 798, 798, 798, 798, 798, 798, 745, 745, 745, 745];
+    let xCoord =            [863, 830, 797, 764, 731, 698, 698, 731, 764, 797, 830, 863, 863, 830, 797, 764, 731, 698, 698, 731, 764, 797, 830, 863, 896, 863, 830, 797];
+    let yCoord =            [930, 930, 930, 930, 930, 930, 897, 897, 897, 897, 897, 897, 831, 831, 831, 831, 831, 831, 798, 798, 798, 798, 798, 798, 745, 745, 745, 745];
     
     // COMP #: (LIB5-LIBXX)    11    10     9     8     7     6     5     4     3     2     1    28    27    26    18    17    16    15    14    13    12    25    24    23    22    21    20    19 
-    XCoord.push             (1065, 1065, 1065, 1065, 1098, 1131, 1164, 1217, 1250, 1283, 1316, 1316, 1316, 1316, 1065, 1065, 1065, 1065, 1098, 1131, 1164, 1217, 1250, 1283, 1316, 1316, 1316, 1316);
-    YCoord.push             (1274, 1241, 1208, 1175, 1175, 1175, 1175, 1175, 1175, 1175, 1175, 1208, 1241, 1274, 1423, 1390, 1357, 1324, 1324, 1324, 1324, 1324, 1324, 1324, 1324, 1357, 1390, 1423);
+    xCoord.push             (1065, 1065, 1065, 1065, 1098, 1131, 1164, 1217, 1250, 1283, 1316, 1316, 1316, 1316, 1065, 1065, 1065, 1065, 1098, 1131, 1164, 1217, 1250, 1283, 1316, 1316, 1316, 1316);
+    yCoord.push             (1274, 1241, 1208, 1175, 1175, 1175, 1175, 1175, 1175, 1175, 1175, 1208, 1241, 1274, 1423, 1390, 1357, 1324, 1324, 1324, 1324, 1324, 1324, 1324, 1324, 1357, 1390, 1423);
     
     // Draw each of the 56 computers from the arrays above
     for(let i = 0; i < 56; i++) {
       
       // If the computer is occupied:
-      if(this.basementComps[i].status == 0 ){
+      if(this.basementComps[i].status == 0) {
         ctx.lineWidth = 8;
         ctx.strokeStyle = this.colors[this.basementComps[i].status];
 
         ctx.beginPath();
-        ctx.moveTo(YCoord[i], XCoord[i]);
-        ctx.lineTo((YCoord[i] + this.square_size) ,(XCoord[i] + this.square_size));
-        ctx.moveTo(YCoord[i], (XCoord[i] + this.square_size));
-        ctx.lineTo((YCoord[i] + this.square_size), XCoord[i]);
+        ctx.moveTo(yCoord[i], xCoord[i]);
+        ctx.lineTo((yCoord[i] + this.square_size) ,(xCoord[i] + this.square_size));
+        ctx.moveTo(yCoord[i], (xCoord[i] + this.square_size));
+        ctx.lineTo((yCoord[i] + this.square_size), xCoord[i]);
         ctx.stroke();
         ctx.closePath();
 
@@ -379,16 +379,30 @@ export class ComputersPage {
       }
 
       // If the computer is available:
-      else {
+      else if(this.basementComps[i].status == 1) {
         ctx.beginPath();
 
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'black';
-        ctx.strokeRect(YCoord[i], XCoord[i], this.square_size, this.square_size);
+        ctx.strokeRect(yCoord[i], xCoord[i], this.square_size, this.square_size);
         ctx.fillStyle = this.colors[this.basementComps[i].status];
         ctx.closePath();
-        ctx.fillRect(YCoord[i], XCoord[i], this.square_size, this.square_size);
+        ctx.fillRect(yCoord[i], xCoord[i], this.square_size, this.square_size);
 
+      }
+
+      // If the computer is being serviced:
+      else {
+        ctx.beginPath();
+
+        ctx.moveTo(yCoord[i] + (this.square_size/2.0), xCoord[i]);
+        ctx.lineTo(yCoord[i], xCoord[i] + this.square_size);
+        ctx.lineTo(yCoord[i] + this.square_size, xCoord[i] + this.square_size);
+        ctx.closePath();
+        ctx.fillStyle = '#FFA500';
+        ctx.fill();
+        ctx.strokeStyle = "000000"
+        ctx.stroke();
       }
 
     }
@@ -411,7 +425,7 @@ export class ComputersPage {
     for(let i = 0; i < 39; i++) {
     
       // If the computer is occupied:
-      if(this.firstFloorComps[i].status == 0 ){
+      if(this.firstFloorComps[i].status == 0){
         ctx.lineWidth = 8;
         ctx.strokeStyle = this.colors[this.firstFloorComps[i].status];
 
@@ -428,7 +442,7 @@ export class ComputersPage {
       }
       
       // If the computer is available:
-      else {
+      else if (this.firstFloorComps[i].status == 1) {
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'black';
@@ -436,6 +450,20 @@ export class ComputersPage {
         ctx.fillStyle = this.colors[this.firstFloorComps[i].status];
         ctx.closePath();
         ctx.fillRect(yCoord[i], xCoord[i], this.square_size, this.square_size);
+      }
+
+      // If the computer is being serviced:
+      else {
+        ctx.beginPath();
+
+        ctx.moveTo(yCoord[i] + (this.square_size/2.0), xCoord[i]);
+        ctx.lineTo(yCoord[i], xCoord[i] + this.square_size);
+        ctx.lineTo(yCoord[i] + this.square_size, xCoord[i] + this.square_size);
+        ctx.closePath();
+        ctx.fillStyle = '#FFA500';
+        ctx.fill();
+        ctx.strokeStyle = "000000"
+        ctx.stroke();
       }
       
     }
@@ -449,7 +477,7 @@ export class ComputersPage {
     for(let i = 0; i < 6; i++) {
 
       // If the computer is occupied:
-      if(this.firstFloorComps[i + 39].status == 0){
+      if(this.firstFloorComps[i + 39].status == 0) {
         ctx.lineWidth = 8;
         ctx.strokeStyle = this.colors[this.firstFloorComps[i + 39].status];
 
@@ -466,7 +494,7 @@ export class ComputersPage {
       }
 
       // If the computer is available:
-      else {
+      else if(this.firstFloorComps[i + 39].status == 1) {
         ctx.fillStyle = this.colors[this.firstFloorComps[i + 39].status];
         ctx.beginPath();
         ctx.lineWidth = 1;
@@ -475,6 +503,20 @@ export class ComputersPage {
         ctx.stroke();
         ctx.closePath();
         ctx.fill();
+      }
+
+      // If the computer is being serviced:
+      else {
+        ctx.beginPath();
+
+        ctx.moveTo(yCoordMac[i] + (this.square_size/2.0), xCoordMac[i]);
+        ctx.lineTo(yCoordMac[i], xCoordMac[i] + this.square_size);
+        ctx.lineTo(yCoordMac[i] + this.square_size, xCoordMac[i] + this.square_size);
+        ctx.closePath();
+        ctx.fillStyle = '#FFA500';
+        ctx.fill();
+        ctx.strokeStyle = "000000"
+        ctx.stroke();
       }
     }
   }
@@ -493,7 +535,7 @@ export class ComputersPage {
     for(let i = 0; i < 8; i++) {
       
       // If the computer is occupied:
-      if(this.secondFloorComps[i].status == 0 ){
+      if(this.secondFloorComps[i].status == 0) {
         ctx.lineWidth = 8;
         ctx.strokeStyle = this.colors[this.secondFloorComps[i].status];
         ctx.beginPath();
@@ -511,7 +553,7 @@ export class ComputersPage {
       }
 
       // If the computer is available:
-      else {
+      else if(this.secondFloorComps[i].status == 1) {
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'black';
@@ -520,6 +562,20 @@ export class ComputersPage {
         ctx.fillStyle = this.colors[this.secondFloorComps[i].status];
         ctx.closePath();
         ctx.fillRect(yCoord[i], xCoord[i], this.square_size, this.square_size);
+      }
+
+      // If the computer is being serviced:
+      else {
+        ctx.beginPath();
+
+        ctx.moveTo(yCoord[i] + (this.square_size/2.0), xCoord[i]);
+        ctx.lineTo(yCoord[i], xCoord[i] + this.square_size);
+        ctx.lineTo(yCoord[i] + this.square_size, xCoord[i] + this.square_size);
+        ctx.closePath();
+        ctx.fillStyle = '#FFA500';
+        ctx.fill();
+        ctx.strokeStyle = "000000"
+        ctx.stroke();
       }
 
     }
@@ -556,7 +612,7 @@ export class ComputersPage {
     for(let i = 0; i < 7; i++) {
       
       // If the computer is occupied:
-      if(this.fourthFloorComps[i].status == 0 ){
+      if(this.fourthFloorComps[i].status == 0) {
           ctx.lineWidth = 8;
           ctx.strokeStyle = this.colors[this.fourthFloorComps[i].status];
 
@@ -574,7 +630,7 @@ export class ComputersPage {
       }
 
       // If the computer is available:
-      else {
+      else if(this.fourthFloorComps[i].status == 1) {
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'black';
@@ -582,6 +638,20 @@ export class ComputersPage {
         ctx.fillStyle = this.colors[this.fourthFloorComps[i].status];
         ctx.closePath();
         ctx.fillRect(yCoord[i], xCoord[i], this.square_size, this.square_size);
+      }
+
+      // If the computer is being serviced:
+      else {
+        ctx.beginPath();
+
+        ctx.moveTo(yCoord[i] + (this.square_size/2.0), xCoord[i]);
+        ctx.lineTo(yCoord[i], xCoord[i] + this.square_size);
+        ctx.lineTo(yCoord[i] + this.square_size, xCoord[i] + this.square_size);
+        ctx.closePath();
+        ctx.fillStyle = '#FFA500';
+        ctx.fill();
+        ctx.strokeStyle = "000000"
+        ctx.stroke();
       }
 
     }
