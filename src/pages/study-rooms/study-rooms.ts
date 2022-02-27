@@ -7,6 +7,7 @@ import { StudyRoomListPage } from '../study-room-list/study-room-list';
 import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
 import { RoomErrorsPage } from '../room-errors/room-errors';
+import { SearchPage } from '../search/search';
 
 const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
 
@@ -14,6 +15,7 @@ const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
   selector: 'page-study-rooms',
   templateUrl: 'study-rooms.html'
 })
+
 export class StudyRoomsPage {
   
   current_floor = 5; //DS
@@ -21,6 +23,7 @@ export class StudyRoomsPage {
 
   keyPage = KeyPage;
   roomErrors = RoomErrorsPage;
+  search = SearchPage;
   
   // will hold the parsed XML of study room data
   studyrooms: any; //
@@ -343,7 +346,8 @@ export class StudyRoomsPage {
       document.getElementById('floor_button').style.visibility = "visible";
       document.getElementById('info_icon').style.visibility = "visible";
       document.getElementById('tech-link').style.visibility = "visible";
-      document.getElementById('main-text').innerHTML = "Tap on image to zoom in. Tap the 'i' for more information.";
+      document.getElementById('searchButton').style.visibility = "visible";
+      document.getElementById('main-text').innerHTML = "Tap on the image to zoom in. Tap the 'i' for more information.";
       this.clearFloorRooms();
       
       for(let i = 0; i < this.studyrooms.length; i++) {

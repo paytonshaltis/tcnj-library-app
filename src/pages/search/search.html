@@ -1,0 +1,52 @@
+<!--
+  Generated template for the SearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Find a Study Room</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h1>Looking for a study room for your entire group?</h1>
+  <p>Enter the number of students in your group. Some available rooms with the requested number of seats will be displayed.</p>
+  
+  <br><br>
+
+  <div id="labelTextEntry">
+    <ion-label id="label">Number of Students:</ion-label>
+    <div class="rightHalf">
+      <ion-input 
+        id="textEntry" 
+        inputmode="numeric"
+        type="number"
+        [(ngModel)]="inputValue">
+      </ion-input>
+    </div>
+  </div>
+
+  <br>
+
+  <button id="submitButton" ion-button (click)="findRooms()">Find Study Rooms</button>
+
+  <br><br><br>
+
+  <div class="results">
+    <h1 id="resultLabel">Results</h1>
+    <hr id="line">
+    <h2 id="result1"></h2>
+    <h2 id="result2"></h2>
+    <h2 id="result3"></h2>
+  </div>
+
+
+</ion-content>

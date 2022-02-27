@@ -29,6 +29,7 @@ import { URLSearchParams } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
 import { CompErrorsPage } from '../pages/comp-errors/comp-errors';
 import { RoomErrorsPage } from '../pages/room-errors/room-errors';
+import { SearchPage } from '../pages/search/search';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
     StudyRoomListPage,
     CompErrorsPage,
     RoomErrorsPage,
+    SearchPage,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +86,7 @@ const routes: Routes = [
     StudyRoomListPage,
     CompErrorsPage,
     RoomErrorsPage,
+    SearchPage,
   ],
   providers: [
     ScreenOrientation,

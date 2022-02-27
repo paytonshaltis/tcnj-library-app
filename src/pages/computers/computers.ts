@@ -301,7 +301,7 @@ export class ComputersPage {
       document.getElementById('floor_button').style.visibility = "visible";
       document.getElementById('info_icon').style.visibility = "visible";
       document.getElementById('tech-link').style.visibility = "visible";
-      document.getElementById('main-text').innerHTML = "Tap on image to zoom in. Tap the 'i' for more information.";
+      document.getElementById('main-text').innerHTML = "Tap on the image to zoom in. Tap the 'i' for more information.";
 
       // Start by clearing the arrays of computers
       this.clearFloorComps();
