@@ -310,7 +310,7 @@ export class ComputersPage {
         
         // Append each computer to its appropriate array
         // Note that all Macs are on the first floor as of Spring 2022
-        if(this.computers[i].name.includes("LIBP1") || this.computers[i].name.includes("mac")){
+        if(this.computers[i].name.includes("LIBP1") || this.computers[i].name.includes("mac") || this.computers[i].name.includes("MAC")){
           this.firstFloorComps.push(this.computers[i]);
         }
         else if(this.computers[i].name.includes("LIBP4")){
