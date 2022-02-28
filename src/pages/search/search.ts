@@ -29,7 +29,7 @@ export class SearchPage {
   }
 
   // Variables used by the SearchPage.
-  inputValue = 0;
+  inputValue: any;
   studyrooms: any;
   availableRooms = [];
   availableRoomsSizes = [];

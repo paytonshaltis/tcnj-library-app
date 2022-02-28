@@ -346,7 +346,7 @@ export class StudyRoomsPage {
       document.getElementById('floor_button').style.visibility = "visible";
       document.getElementById('info_icon').style.visibility = "visible";
       document.getElementById('tech-link').style.visibility = "visible";
-      document.getElementById('searchButton').style.visibility = "visible";
+      //document.getElementById('searchButton').style.visibility = "visible";
       document.getElementById('main-text').innerHTML = "Tap on the image to zoom in. Tap the 'i' for more information.";
       this.clearFloorRooms();
       
