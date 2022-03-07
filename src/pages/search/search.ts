@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http'
 import xml2js from 'xml2js';
+import { VpnPage } from '../vpn/vpn';
 
 // Server in which MySQL database resides.
 const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
@@ -29,6 +30,7 @@ export class SearchPage {
   }
 
   // Variables used by the SearchPage.
+  vpnPage = VpnPage;
   inputValue: any;
   studyrooms: any;
   availableRooms = [];
@@ -132,7 +134,15 @@ export class SearchPage {
     let alert = this.alertCtrl.create({
       title: 'TCNJ WiFi!',
       subTitle: 'You must be on the TCNJ WiFi to find available study rooms.',
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'Ok'
+        },
+        {
+          text: 'VPN Info',
+          handler: () => { this.navCtrl.push(this.vpnPage); }
+        }
+    ]
     });
     alert.present();
   }

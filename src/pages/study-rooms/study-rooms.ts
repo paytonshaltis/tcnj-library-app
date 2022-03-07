@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
 import { RoomErrorsPage } from '../room-errors/room-errors';
 import { SearchPage } from '../search/search';
+import { VpnPage } from '../vpn/vpn';
 
 const URL = 'http://knoxlablibrary.tcnj.edu/studyroomstatus.php';
 
@@ -24,6 +25,7 @@ export class StudyRoomsPage {
   keyPage = KeyPage;
   roomErrors = RoomErrorsPage;
   search = SearchPage;
+  vpnPage = VpnPage;
   
   // will hold the parsed XML of study room data
   studyrooms: any; //
@@ -368,7 +370,15 @@ export class StudyRoomsPage {
     let alert = this.alertCtrl.create({
       title: 'TCNJ WiFi!',
       subTitle: 'You must be on the TCNJ WiFi to view study room availability.',
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'Ok'
+        },
+        {
+          text: 'VPN Info',
+          handler: () => { this.navCtrl.push(this.vpnPage); }
+        }
+    ]
     });
     alert.present();
   }

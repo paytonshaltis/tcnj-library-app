@@ -30,6 +30,7 @@ import { HTTP } from '@ionic-native/http';
 import { CompErrorsPage } from '../pages/comp-errors/comp-errors';
 import { RoomErrorsPage } from '../pages/room-errors/room-errors';
 import { SearchPage } from '../pages/search/search';
+import { VpnPage } from '../pages/vpn/vpn';
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
     CompErrorsPage,
     RoomErrorsPage,
     SearchPage,
+    VpnPage,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +89,7 @@ const routes: Routes = [
     CompErrorsPage,
     RoomErrorsPage,
     SearchPage,
+    VpnPage,
   ],
   providers: [
     ScreenOrientation,

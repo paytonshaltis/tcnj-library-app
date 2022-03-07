@@ -6,6 +6,7 @@ import { KeyPage } from '../key/key';
 import 'rxjs/add/operator/map';
 import xml2js from 'xml2js';
 import { CompErrorsPage } from '../comp-errors/comp-errors';
+import { VpnPage } from '../vpn/vpn';
 const URL = 'http://knoxlablibrary.tcnj.edu/compstatus.php';
 
 @Component({
@@ -19,9 +20,10 @@ export class ComputersPage {
   current_floor = 5;
   inter: any;
 
-  // Need a reference to the map key page and tech explanation page
+  // The references needed to link to outside pages
   keyPage = KeyPage;
   compErrors = CompErrorsPage;
+  vpnPage = VpnPage;
 
   // The parsed XML of computer data
   computers: any;     
@@ -41,7 +43,7 @@ export class ComputersPage {
   img_src = "";
 
   /* Obtain URI of each map / name of each map to array, create floor plan images */
-  constructor(public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public http: HTTP) {
+  constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public http: HTTP) {
     for(let i = 0; i < 5; i++) {
       let plan_uri = "assets/floor_plans/".concat(i.toString(), "_comp.png");
       this.plans.push(plan_uri);
@@ -332,12 +334,23 @@ export class ComputersPage {
 
   }
 
-  /* Alert the user that they are not on the TCNJ WiFi */
+  /* 
+    Alert the user that they are not on the TCNJ WiFi. The user can then
+    get information regarding the VPN if they would like to connect that way.
+  */
   showWifiAlert() {
     let alert = this.alertCtrl.create({
       title: 'TCNJ WiFi!',
       subTitle: 'You must be on the TCNJ WiFi to view computer availability.',
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'Ok'
+        },
+        {
+          text: 'VPN Info',
+          handler: () => { this.navCtrl.push(this.vpnPage); }
+        }
+    ]
     });
     alert.present();
   }

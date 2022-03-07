@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform, NavController, NavParams} from 'ionic-angular';
 import { InAppBrowser } from 'ionic-native';
+import { VpnPage } from '../vpn/vpn';
 
 @Component({
   selector: 'page-info',
@@ -10,6 +11,7 @@ import { InAppBrowser } from 'ionic-native';
 export class InfoPage {
 
   platform: any;
+  vpnPage = VpnPage;
 
   /*
     Discovers the platform that the app is running on.
@@ -21,7 +23,7 @@ export class InfoPage {
   /*
     Instantiates the platform field to the platform the app is running on.
   */
-  constructor(platform) {
+  constructor(public navCtrl: NavController, platform) {
     this.platform = platform;
   }
 
