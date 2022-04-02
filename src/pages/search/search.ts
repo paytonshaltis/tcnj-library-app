@@ -139,7 +139,7 @@ export class SearchPage {
           text: 'Ok'
         },
         {
-          text: 'VPN Info',
+          text: 'Off Campus?',
           handler: () => { this.navCtrl.push(this.vpnPage); }
         }
     ]

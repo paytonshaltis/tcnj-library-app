@@ -223,15 +223,13 @@ export class StudyRoomsPage {
           this.current_floor = 4;
         }
       }, 
-      // {
-      //   text: "Study Room Information",
-      //   handler: () => {
-      //     this.navCtrl.pop();
-      //     this.navCtrl.push(StudyRoomListPage, {
-      //       plan_names: this.plan_names
-      //     });
-      //   }
-      // }, 
+      {
+        text: "Search for a Study Room",
+        handler: () => {
+          this.navCtrl.pop();
+          this.navCtrl.push(this.search);
+        }
+      }, 
       {
         text: 'Cancel',
         role: 'cancel',
@@ -375,7 +373,7 @@ export class StudyRoomsPage {
           text: 'Ok'
         },
         {
-          text: 'VPN Info',
+          text: 'Off Campus?',
           handler: () => { this.navCtrl.push(this.vpnPage); }
         }
     ]
