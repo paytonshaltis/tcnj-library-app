@@ -185,7 +185,7 @@ export class SearchPage {
       
       // For rooms with two sensors, check both and increase index again.
       if(i == 5 || i == 24) {
-        if((this.studyrooms[i].status == 1 || this.studyrooms[i + 1].status) && this.roomSizes[i] >= this.inputValue) {
+        if((this.studyrooms[i].status == 1 && this.studyrooms[i + 1].status == 1) && this.roomSizes[i] >= this.inputValue) {
           this.availableRooms.push(this.studyrooms[i]);
           this.availableRoomsSizes.push(this.roomSizes[i]);
         }

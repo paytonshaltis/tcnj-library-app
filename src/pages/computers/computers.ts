@@ -175,6 +175,7 @@ export class ComputersPage {
           }
 
         }
+
         resolve(arr);
       });
     });
@@ -372,7 +373,7 @@ export class ComputersPage {
     yCoord.push             (1274, 1241, 1208, 1175, 1175, 1175, 1175, 1175, 1175, 1175, 1175, 1208, 1241, 1274, 1423, 1390, 1357, 1324, 1324, 1324, 1324, 1324, 1324, 1324, 1324, 1357, 1390, 1423);
     
     // Draw each of the 56 computers from the arrays above
-    for(let i = 0; i < 56; i++) {
+    for(let i = 0; i < xCoord.length; i++) {
       
       // If the computer is occupied:
       if(this.basementComps[i].status == 0) {
@@ -429,13 +430,13 @@ export class ComputersPage {
     let canvas = <HTMLCanvasElement>document.getElementById('canvas');
     let ctx = canvas.getContext("2d");
 
-    // Coordinates for all 39 PCs on the first floor
-    // COMP #:      1    2    3    4    5   62   63   64   65   66   67   68  018  019  020  021  022  013  014  015  016  017  025  026  027  028  034  035   037   043   044   038   039   040   048   047   046   036   031
-    let xCoord = [530, 530, 530, 530, 530, 585, 585, 585, 585, 585, 585, 585, 550, 550, 550, 550, 550, 513, 513, 513, 513, 513, 817, 780, 817, 780, 821, 821, 1161, 1161, 1198, 1198, 1198, 1161, 1235, 1198, 1161, 1022, 700];
-    let yCoord = [940, 900, 860, 820, 780, 698, 658, 618, 578, 538, 498, 458, 368, 331, 294, 257, 220, 368, 331, 294, 257, 220, 546, 546, 509, 509, 366, 329,  483,  261,  224,  446,  335,  372,  150,  150,  150,  150, 150];
+    // Coordinates for all 29 PCs on the first floor
+    // COMP #:      1    2    3    4    5   62   63   64   65   66   67   68  018  019  020  021  022  013  014  015  016  017  034  035   048   047   046   036  031
+    let xCoord = [530, 530, 530, 530, 530, 585, 585, 585, 585, 585, 585, 585, 550, 550, 550, 550, 550, 513, 513, 513, 513, 513, 821, 821, 1235, 1198, 1161, 1022, 700];
+    let yCoord = [940, 900, 860, 820, 780, 698, 658, 618, 578, 538, 498, 458, 368, 331, 294, 257, 220, 368, 331, 294, 257, 220, 366, 329,  150,  150,  150,  150, 150];
     
     // Draw each of the 42 PCs from the arrays above
-    for(let i = 0; i < 39; i++) {
+    for(let i = 0; i < xCoord.length; i++) {
     
       // If the computer is occupied:
       if(this.firstFloorComps[i].status == 0){
@@ -481,18 +482,18 @@ export class ComputersPage {
       
     }
 
-    // Coordinates for all 6 Macs on the first floor
-    // COMP #:         1    2    3    4    5    6
-    let xCoordMac = [780, 817, 780, 817, 784, 784];
-    let yCoordMac = [657, 657, 690, 690, 329, 366];
+    // Coordinates for all 10 Macs on the first floor
+    // COMP #:        01   02   03   04   05   06   07   08   09   10
+    let xCoordMac = [780, 817, 780, 817, 784, 784, 817, 780, 817, 780];
+    let yCoordMac = [657, 657, 690, 690, 329, 366, 546, 546, 509, 509];
 
     // Draw each of the 6 Macs from the arrays above
-    for(let i = 0; i < 6; i++) {
+    for(let i = 0; i < xCoordMac.length; i++) {
 
       // If the computer is occupied:
-      if(this.firstFloorComps[i + 39].status == 0) {
+      if(this.firstFloorComps[i + xCoord.length].status == 0) {
         ctx.lineWidth = 8;
-        ctx.strokeStyle = this.colors[this.firstFloorComps[i + 39].status];
+        ctx.strokeStyle = this.colors[this.firstFloorComps[i + xCoord.length].status];
 
         ctx.beginPath();
         ctx.moveTo(yCoordMac[i],xCoordMac[i]);
@@ -507,8 +508,8 @@ export class ComputersPage {
       }
 
       // If the computer is available:
-      else if(this.firstFloorComps[i + 39].status == 1) {
-        ctx.fillStyle = this.colors[this.firstFloorComps[i + 39].status];
+      else if(this.firstFloorComps[i + xCoord.length].status == 1) {
+        ctx.fillStyle = this.colors[this.firstFloorComps[i + xCoord.length].status];
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'black';
@@ -541,11 +542,11 @@ export class ComputersPage {
     let canvas = <HTMLCanvasElement>document.getElementById('canvas');
     let ctx = canvas.getContext("2d");
 
-    // Coordinates for all 8 PCs on the second floor
-    // COMP #:     01   02  003  004  005  006  007   08
-    let xCoord = [487, 524, 561, 598, 635, 672, 709, 746];
-    let yCoord = [187, 150, 187, 150, 187, 150, 187, 150];
-    for(let i = 0; i < 8; i++) {
+    // Coordinates for all 2 PCs on the second floor
+    // COMP #:     01   02
+    let xCoord = [487, 524];
+    let yCoord = [187, 150];
+    for(let i = 0; i < xCoord.length; i++) {
       
       // If the computer is occupied:
       if(this.secondFloorComps[i].status == 0) {
@@ -622,7 +623,7 @@ export class ComputersPage {
     let yCoord = [780,   780,  820,  820,  300,  340,  500];
     
     // Draw each of the 7 PCs from the arrays above
-    for(let i = 0; i < 7; i++) {
+    for(let i = 0; i < xCoord.length; i++) {
       
       // If the computer is occupied:
       if(this.fourthFloorComps[i].status == 0) {
